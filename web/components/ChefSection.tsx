@@ -78,7 +78,7 @@ export default function ChefSection() {
       // First screen pins while the gravy drains and the headline arrives; the rest flows.
       const intro = gsap.timeline({
         defaults: { ease: "none" },
-        scrollTrigger: { trigger: section, start: "top top", end: "+=80%", pin: true, scrub: 0.4 },
+        scrollTrigger: { trigger: section, start: "top top", end: "+=80%", pin: true, anticipatePin: 1, scrub: 0.4 },
       });
       intro.fromTo(q(".chef-wipe"), { clipPath: "ellipse(160% 140% at 50% 0%)" }, { clipPath: "ellipse(160% 0% at 50% 0%)", duration: 0.55, ease: "power2.inOut" }, 0);
       intro.fromTo(q(".chef-headline .line-inner"), { yPercent: 125 }, { yPercent: 0, duration: 0.3, stagger: 0.08, ease: "power3.out" }, 0.45);

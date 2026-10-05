@@ -65,6 +65,7 @@ export default function HeroScroll() {
           start: "top top",
           end: PIN_LENGTH,
           pin: true,
+          anticipatePin: 1, // pin a frame early on fast flicks: no jump when the hero locks
           scrub: 0.35,
           invalidateOnRefresh: true,
         },

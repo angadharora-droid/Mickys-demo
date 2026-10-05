@@ -318,7 +318,9 @@ export default function ProductCanvas({ className = "", ref, onResize }: Props) 
     s.plan = plan;
 
     const layout = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      // Phones draw at most 2x: indistinguishable on screen, ~45% fewer pixels to repaint per frame
+      // than 3x, and it selects the lighter mobile frame set.
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth <= PHONE_MAX_WIDTH ? 2 : 3);
 
       // Largest box with the frame's aspect that fits the available area.
       let cssW = Math.min(box.clientWidth, box.clientHeight * FRAME_ASPECT);

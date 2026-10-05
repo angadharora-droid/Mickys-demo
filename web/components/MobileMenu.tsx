@@ -65,7 +65,7 @@ export default function MobileMenu() {
         Menu
       </button>
 
-      <dialog ref={ref} id="mobile-menu" className="mmenu" aria-label="Menu">
+      <dialog ref={ref} id="mobile-menu" className="mmenu" aria-label="Menu" data-lenis-prevent>
         <div className="mmenu-in" tabIndex={-1} autoFocus>
           <div className="mmenu-top">
             <Link href="/" className="display mmenu-logo" onClick={() => ref.current?.close()}>Micky&apos;s</Link>

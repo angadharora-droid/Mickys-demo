@@ -16,7 +16,18 @@ export default function SmoothScroll() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    // Phones/tablets: Lenis also drives touch scrolling (syncTouch), so the page, the pinned
+    // sections and the 3D frames all move in the same animation frame. With native touch scrolling,
+    // iOS/Android scroll on a separate thread and pinned sections visibly wobble and lag the finger.
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    const lenis = new Lenis({
+      autoRaf: false,
+      lerp: 0.1,
+      syncTouch: touch,
+      syncTouchLerp: 0.085, // follow the finger closely, then glide
+      touchInertiaExponent: 1.7, // momentum after a flick, close to native feel
+      allowNestedScroll: true, // menus, drawers and modals keep their own scrolling
+    });
     lenis.on("scroll", ScrollTrigger.update);
     setLenis(lenis);
 
