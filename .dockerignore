@@ -1,0 +1,15 @@
+**/node_modules
+**/.next
+**/.data
+**/.env
+**/.env.*
+!**/.env.example
+**/*.tsbuildinfo
+**/.DS_Store
+.git
+3d
+screenshots
+frontend
+admin
+legacy-static
+.web-git-template-backup

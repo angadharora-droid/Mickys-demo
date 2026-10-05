@@ -15,12 +15,21 @@ npm install
 npm run dev                  # http://localhost:3000
 ```
 
-## Docker
+## Docker (website + backend in one image)
+The root `Dockerfile` builds **both** into one container: the website on `$PORT`, the backend inside the
+same container on port 5000, reachable through the website at `/backend/*` (e.g. `/backend/health`).
 ```bash
-docker compose up --build    # website :3000, API :5000/api/health, MongoDB
+docker build -t mickys .
+docker run -p 3000:3000 -e PORT=3000 mickys      # http://localhost:3000, /api/health, /backend/health
 ```
-Secrets are read at run time from `web/.env.local` and `backend/.env` (git-ignored). Only `NEXT_PUBLIC_*`
-values are build arguments, and those must never be secrets.
+Secrets are passed as environment variables at run time (never baked in). Only `NEXT_PUBLIC_*` values are
+build arguments, and those must never be secrets. (`web/Dockerfile`, `backend/Dockerfile` and
+`docker-compose.yml` remain for running the two separately.)
+
+### Railway
+One service from the repository root: leave **Root Directory empty**; Railway reads `railway.json`
+(Dockerfile build, health check `/api/health`). Add variables in the service, e.g. `NEXT_PUBLIC_SITE_URL`,
+Razorpay test keys, and `MONGODB_URI` if the backend should use a database.
 
 ## Deploy
 See [`web/DEPLOYMENT.md`](web/DEPLOYMENT.md) for the Vercel and Render settings and environment variables.
