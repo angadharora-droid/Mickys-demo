@@ -28,5 +28,7 @@ COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
 USER node
 EXPOSE 3000
-# server-only secrets (Razorpay secret, webhook URLs) are passed at run time, never baked in
-CMD ["node", "server.js"]
+# server-only secrets (Razorpay secret, webhook URLs) are passed at run time, never baked in.
+# The platform overrides HOSTNAME with the container name at run time, so bind to "::" here:
+# every interface, IPv4 and IPv6 (Railway's health check and private network both reach it). PORT comes from the platform.
+CMD ["sh", "-c", "HOSTNAME=:: exec node server.js"]
