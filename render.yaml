@@ -1,0 +1,65 @@
+# Render Blueprint: the Express API in backend/ (Micky's orders, payments, shipping, admin).
+# Dashboard: New + > Blueprint > pick this repo. Secrets are entered in the Render dashboard (sync: false),
+# never committed. The Next.js site in web/ is deployed separately on Vercel.
+services:
+  - type: web
+    name: mickys-backend
+    runtime: node
+    rootDir: backend
+    region: singapore          # closest Render region to India
+    plan: starter              # "free" works for testing but sleeps after inactivity
+    buildCommand: npm ci
+    startCommand: npm start    # node server.js (listens on Render's PORT)
+    healthCheckPath: /api/health
+    autoDeploy: false          # deploy manually until the first release is approved
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # --- database / auth ---
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 7d
+      # --- Razorpay (server only; test keys until the flow is approved) ---
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      # --- Shiprocket ---
+      - key: SHIPROCKET_EMAIL
+        sync: false
+      - key: SHIPROCKET_PASSWORD
+        sync: false
+      - key: SHIPROCKET_PICKUP_LOCATION
+        sync: false
+      - key: SHIPROCKET_WEBHOOK_TOKEN
+        sync: false
+      - key: SHIPROCKET_DEFAULT_WEIGHT_KG
+        sync: false
+      - key: SHIPROCKET_DEFAULT_LENGTH_CM
+        sync: false
+      - key: SHIPROCKET_DEFAULT_BREADTH_CM
+        sync: false
+      - key: SHIPROCKET_DEFAULT_HEIGHT_CM
+        sync: false
+      # --- email ---
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      # --- CORS: the browser origins allowed to call this API ---
+      - key: FRONTEND_URL
+        sync: false            # e.g. https://mickys.in (the Vercel site)
+      - key: ADMIN_URL
+        sync: false
+      # used only by `npm run seed`
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

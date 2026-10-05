@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+build/
+**/dist/
+**/build/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+**/.env
+!**/.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local tooling
+.claude/
+scratchpad/
+.vite/
+
+# ---- Not part of this repository (kept locally only) ----
+# 3D working files: Blender scenes, 1.7 GB of renders/exports (the web frames live in web/public/sequences)
+3d/
+# QA screenshots and recordings
+screenshots/
+# old apps, replaced by web/ (Next.js)
+frontend/
+admin/
+legacy-static/
+index.html
+# previous web/.git (create-next-app template commit only)
+.web-git-template-backup/
+
+# Next.js / runtime
+.next/
+.data/
+*.tsbuildinfo
+next-env.d.ts

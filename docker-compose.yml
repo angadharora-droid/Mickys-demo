@@ -1,0 +1,39 @@
+# Local full stack: website + backend API + MongoDB.
+#   docker compose up --build      -> website http://localhost:3000, API http://localhost:5000/api/health
+# Secrets come from web/.env.local and backend/.env (both git-ignored; copy the .env.example files).
+services:
+  web:
+    build:
+      context: ./web
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+        NEXT_PUBLIC_RAZORPAY_KEY_ID: ${NEXT_PUBLIC_RAZORPAY_KEY_ID:-}
+    ports:
+      - "3000:3000"
+    env_file:
+      - path: ./web/.env.local
+        required: false
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017/mickys}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
