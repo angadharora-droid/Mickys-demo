@@ -1904,10 +1904,10 @@ body {
   .ab-val dd { margin: 0 0 1.4vh; font-size: 19px; }
 
   .ab-founders { padding: 20vh 4vw; }
-  .ab-founders-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4vw; margin-top: 9vh; }
-  .ab-founder:nth-child(2) { margin-top: 12vh; }
-  .ab-founder-img { border-radius: 24px; }
-  .ab-founder-name { margin-top: 3vh; font-size: min(4.4vw, 8vh); }
+  .ab-founders-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 4vw; margin-top: 9vh; }
+  .ab-founder-img { aspect-ratio: auto; height: min(60svh, 41vw); border-radius: 24px; }
+  .ab-founder-img img { object-position: 50% 40%; }
+  .ab-founder-name { margin-top: 2.6vh; font-size: min(4vw, 7vh); }
   .ab-founder-role { font-size: 13px; }
 
   .ab-range { padding: 20vh 4vw; }
