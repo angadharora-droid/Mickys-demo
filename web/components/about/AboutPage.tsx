@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ABOUT_FINAL, ABOUT_HERO, ABOUT_PHOTOS, CONVENIENCE, EXISTS, FOOD_FIRST, IDEA, PRINCIPLES, RANGE_CTA, VALUES } from "@/data/about";
+import { ABOUT_FINAL, ABOUT_HERO, ABOUT_PHOTOS, CONVENIENCE, EXISTS, FOOD_FIRST, FOUNDERS, IDEA, PRINCIPLES, RANGE_CTA, VALUES } from "@/data/about";
 import { lightSection } from "@/lib/headerTheme";
 import { Line } from "../ScrollCopy";
 import B2BPhoto from "../b2b/B2BPhoto";
@@ -192,7 +192,30 @@ export default function AboutPage({ photos }: Props) {
           </dl>
         </section>
 
-        {/* 8 — into the range */}
+        {/* 8 — founders */}
+        <section className="ab-founders" aria-labelledby="ab-founders-h">
+          <p className="ab-eyebrow ab-reveal">Founders</p>
+          <div className="ab-food-head ab-founders-head">
+            <h2 id="ab-founders-h" className="display ab-h ab-reveal">
+              <Line>{FOUNDERS.headline[0]}</Line>
+              <Line className="ab-accent">{FOUNDERS.headline[1]}</Line>
+            </h2>
+            <p className="ab-lede ab-reveal">{FOUNDERS.support}</p>
+          </div>
+          <ul className="ab-founders-list">
+            {FOUNDERS.people.map((f, i) => (
+              <li key={f.name} className="ab-founder ab-reveal" style={{ ["--d" as string]: `${i * 140}ms` }}>
+                <div className="ab-founder-img" data-parallax="4">
+                  <Image src={f.src} alt={f.alt} fill sizes="(min-width: 1024px) 44vw, 100vw" className="object-cover" />
+                </div>
+                <h3 className="display ab-founder-name">{f.name}</h3>
+                <p className="ab-founder-role">{f.role}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 9 — into the range */}
         <section className="ab-range" data-theme="light" aria-labelledby="ab-range-h">
           <h2 id="ab-range-h" className="display ab-h ab-reveal">
             {RANGE_CTA.headline.map((l, i) => <Line key={l} className={i === 2 ? "ab-accent" : ""}>{l}</Line>)}
@@ -212,7 +235,7 @@ export default function AboutPage({ photos }: Props) {
           <Link href="/shop" className="ab-btn is-dark ab-reveal">{RANGE_CTA.cta}</Link>
         </section>
 
-        {/* 9 — final message */}
+        {/* 10 — final message */}
         <section className="ab-final" aria-labelledby="ab-final-h">
           <h2 id="ab-final-h" className="display ab-final-h ab-reveal">
             <Line>{ABOUT_FINAL.headline[0]}</Line>

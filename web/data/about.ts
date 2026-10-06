@@ -1,6 +1,6 @@
 // Copy for /about (brand story). Philosophy only: no founding dates, founder story, history, capacity,
-// factory details, awards, certifications or market claims (none are approved). If company history is
-// needed later, add it as its own section once the facts are supplied.
+// factory details, awards, certifications or market claims (none are approved). FOUNDERS carries names and
+// titles only. If company history is needed later, add it as its own section once the facts are supplied.
 
 export const ABOUT_HERO = {
   headline: ["We believe", "cooking should", "still feel", "like cooking."],
@@ -43,6 +43,15 @@ export const VALUES = [
   { title: "Consistency", text: "The same dependable base, pouch after pouch." },
   { title: "Creative control", text: "The final call always belongs to the cook." },
 ];
+
+export const FOUNDERS = {
+  headline: ["The people", "behind the base."],
+  support: "Micky's is made by Centre Point Food Pvt Ltd, founded by Angadh and Arjun Arora.",
+  people: [
+    { name: "Angadh Arora", role: "Founder · Centre Point Food Pvt Ltd", src: "/images/about/founder-angadh-arora.webp", alt: "Angadh Arora at his desk" },
+    { name: "Arjun Arora", role: "Founder · Centre Point Food Pvt Ltd", src: "/images/about/founder-arjun-arora.webp", alt: "Arjun Arora standing in his office" },
+  ],
+};
 
 export const RANGE_CTA = {
   headline: ["Made to work", "across your", "kitchen."],
