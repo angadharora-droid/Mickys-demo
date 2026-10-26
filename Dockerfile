@@ -29,6 +29,9 @@ RUN npm ci --omit=dev
 FROM node:22-slim AS runtime
 WORKDIR /app
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 BACKEND_PORT=5000
+# Memory: fewer glibc malloc arenas (stops sharp/libvips image work from bloating RSS), one libvips thread,
+# and a V8 heap cap for the process that runs the backend (start.js caps the website itself, see WEB_HEAP_MB).
+ENV MALLOC_ARENA_MAX=2 VIPS_CONCURRENCY=1 NODE_OPTIONS=--max-old-space-size=192
 # website: standalone server + static assets + public files
 COPY --from=web-build --chown=node:node /app/web/.next/standalone ./web/
 COPY --from=web-build --chown=node:node /app/web/.next/static ./web/.next/static
@@ -39,5 +42,5 @@ COPY --from=backend-deps --chown=node:node /app/backend/node_modules ./backend/n
 COPY --chown=node:node start.js ./start.js
 USER node
 EXPOSE 3000
-# start.js runs both servers; if either stops, the container exits and the platform restarts it
+# start.js runs the backend in its own process and the website as a child; if either stops, the container exits
 CMD ["node", "start.js"]
